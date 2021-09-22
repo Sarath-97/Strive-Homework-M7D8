@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
 
-interface FuntionalCompontentProps {
+interface FunctionalCompontentProps {
   title: string;
 }
 
 interface Song {
   id: number;
-  album: string;
-  artist: string;
+  title: string;
+  duration: string;
 }
-const SearchBar = ({ title }: FuntionalCompontentProps) => {
-  const [data, setSong] = useState<Song[]>([]);
+const SearchBar = ({ title }: FunctionalCompontentProps) => {
+  const [song, setSong] = useState<Song[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      let response = await fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=eminem");
+      let response = await fetch(
+        "https://striveschool-api.herokuapp.com/api/deezer/search?q=eminem"
+      );
       let songs = await response.json();
-      setSong(songs);
+      setSong(songs.data);
       console.log(songs);
     };
     fetchData();
@@ -27,10 +29,10 @@ const SearchBar = ({ title }: FuntionalCompontentProps) => {
       <h1>FUNCTIONAL COMPONENT!</h1>
       <h2>{title}</h2>
       <ul>
-        {data.map((song) => (
+        {song.map(song => (
           <>
-            <li>{song.album}</li>
-            <li>{song.artist}</li>
+            <li>{song.title}</li>
+            <li>{song.duration}</li>
           </>
         ))}
       </ul>
