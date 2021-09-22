@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Form, FormControl, Button } from "react-bootstrap";
 
 interface FuntionalCompontentProps {
   title: string;
@@ -7,18 +6,15 @@ interface FuntionalCompontentProps {
 
 interface Song {
   id: number;
-  title: string;
-  artist: string;
   album: string;
+  artist: string;
 }
 const SearchBar = ({ title }: FuntionalCompontentProps) => {
-  const [song, setSong] = useState<Song[]>([]);
+  const [data, setSong] = useState<Song[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/deezer/search?q=eminem"
-      );
+      let response = await fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=eminem");
       let songs = await response.json();
       setSong(songs);
       console.log(songs);
@@ -27,10 +23,18 @@ const SearchBar = ({ title }: FuntionalCompontentProps) => {
   }, []);
 
   return (
-    <Form className="d-flex justify-content-center mt-5" inline>
-      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-      <Button variant="outline-success">Search</Button>
-    </Form>
+    <div>
+      <h1>FUNCTIONAL COMPONENT!</h1>
+      <h2>{title}</h2>
+      <ul>
+        {data.map((song) => (
+          <>
+            <li>{song.album}</li>
+            <li>{song.artist}</li>
+          </>
+        ))}
+      </ul>
+    </div>
   );
 };
 

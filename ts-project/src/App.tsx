@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <MyNavBar />
       <Container>
-        <SearchBar title ="hello" />
+        <SearchBar title ="Songs" />
       </Container>
     </div>
   );
